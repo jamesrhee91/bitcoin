@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JavaScript fetch() Lab</title>
+    <style>
+      .flexbox-container {
+        display: -ms-flex;
+        display: -webkit-flex;
+        display: flex;
+      }
+      .flexbox-container > div {
+        width: 50%;
+        padding: 10px;
+      }
+      .flexbox-container > div:first-child {
+        margin-right: 20px;
+      }
+    </style>
+    <script src = "./vendor/jquery-1.8.3.min.js"></script>
+    <script src = "./vendor/Chart.min.js"></script>
+    <script src="index.js"></script>
+  </head>
+  <body>
+    <main id="main">
+      <div id="errors"></div>
+    </main>
+    <div class="flexbox-container">
+      <div>
+        <h3>Create Fork</h3>
+        <p><a href="#" onclick="launchBitcoinApp()">See Bitcoin Prices</a></p>
+        <div id="results"></div>
+      </div>
+    </div>
+    <canvas id="bitcoinChart" width="1500" height="800"></canvas>
+  </body>
+</html>
