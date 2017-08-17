@@ -21,16 +21,22 @@
     <script src="index.js"></script>
   </head>
   <body>
-    <main id="main">
-      <div id="errors"></div>
-    </main>
+
     <div class="flexbox-container">
       <div>
-        <h3>Create Fork</h3>
         <p><a href="#" onclick="launchBitcoinApp()">See Bitcoin Prices</a></p>
         <div id="results"></div>
       </div>
     </div>
-    <canvas id="bitcoinChart" width="1500" height="800"></canvas>
+    <main id="main">
+      One day ago: <span id="today-price"></span>
+      <div id="one-hour-ago"></div>
+      <div id="one-day-ago"></div>
+      <div id="one-week-ago"></div>
+      <div id="one-month-ago"></div>
+      <div id="one-year-ago"></div>
+    </main>
+    <canvas id="bitcoinChart" width="1200" height="800"></canvas>
+
   </body>
 </html>
