@@ -3,7 +3,11 @@
   <head>
     <title>JavaScript fetch() Lab</title>
     <style>
-      .flexbox-container {
+      .container {
+          width: 1000px;
+          margin: 0px;
+      }
+      /*.flexbox-container {
         display: -ms-flex;
         display: -webkit-flex;
         display: flex;
@@ -14,6 +18,21 @@
       }
       .flexbox-container > div:first-child {
         margin-right: 20px;
+      }*/
+      .form-container {
+        width: 500px;
+        float: left;
+        margin: auto;
+      }
+
+      .price-container {
+        width: 500px;
+        float: left;
+        margin: auto;
+      }
+      .img-arrow {
+        width: 12px;
+        height: 12px;
       }
     </style>
     <script src = "./vendor/jquery-1.8.3.min.js"></script>
@@ -22,20 +41,31 @@
   </head>
   <body>
 
-    <div class="flexbox-container">
-      <div>
-        <p><a href="#" onclick="launchBitcoinApp()">See Bitcoin Prices</a></p>
-        <div id="results"></div>
+    <div class="container">
+      <div class="price-container">
+        <main id="main">
+          <div>Current price: <span id="current-price"></span></div>
+          <div id="one-hour-ago"></div>
+          <div>One day ago: <span id="one-day-ago"></span>  |  <img id="one-day-ago-pic" src="" class="img-arrow"><span id="one-day-ago-diff"></span></div>
+          <div>One week ago: <span id="one-week-ago"></span>  |  <img id="one-week-ago-pic" src="" class="img-arrow"><span id="one-week-ago-diff"></span></div>
+          <div>One month ago: <span id="one-month-ago"></span>  |  <img id="one-month-ago-pic" src="" class="img-arrow"><span id="one-month-ago-diff"></span></div>
+          <div>One year ago: <span id="one-year-ago"></span>  |  <img id="one-year-ago-pic" src="" class="img-arrow"><span id="one-year-ago-diff"></span></div>
+          <!-- <p><a href="#" onclick="launchBitcoinApp()">See Bitcoin Prices</a></p> -->
+        </main>
+      </div>
+      <div class="form-container">
+        <div>
+          <form id="chart-form">
+            <label for="start-date">Start date: </label>
+            <input type="text" id="start-date-input" placeholder="2015-08-01">
+            <label for="end-date">End date: </label>
+            <input type="text" id="end-date-input" placeholder="2017-08-01">
+            <input type="submit" id="chart-button" value="Update Chart">
+          </form>
+          <div id="results"></div>
+        </div>
       </div>
     </div>
-    <main id="main">
-      <div>Current price: <span id="current-price"></span></div>
-      <div id="one-hour-ago"></div>
-      <div>One day ago: <span id="one-day-ago"></span>  |  <span id="one-day-ago-diff"></span></div>
-      <div>One week ago: <span id="one-week-ago"></span>  |  <span id="one-week-ago-diff"></span></div>
-      <div>One month ago: <span id="one-month-ago"></span>  |  <span id="one-month-ago-diff"></span></div>
-      <div>One year ago: <span id="one-year-ago"></span>  |  <span id="one-year-ago-diff"></span></div>
-    </main>
     <canvas id="bitcoinChart" width="1200" height="800"></canvas>
 
   </body>

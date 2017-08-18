@@ -3,8 +3,17 @@ function showResults(json) {
 	console.log(json)
   var ctx = $("#bitcoinChart").get(0).getContext("2d");
   var data = generateDataSet(getDates(json), getPrices(json));
-  var tempChart = new Chart(ctx).Line(data, { bezierCurve: true, responsive: true  });
+  var tempChart = new Chart(ctx).Line(data, { bezierCurve: true, responsive: true, hover: {mode: 'nearest', intersect: true } });
 }
+
+
+
+
+
+
+
+
+
 
 
 function launchBitcoinApp() {
@@ -28,8 +37,6 @@ function getCurrentPrice() {
 		method: 'GET',
 	}).then(res => res.json()).then(json => currentPrice(json))
 }
-
-
 
 function getDates(json){
   return Object.keys(json.bpi).filter(date => date.slice(-2) == "01")
@@ -77,34 +84,46 @@ function priceDifference() {
 	let oneWeekAgoPrice = document.getElementById("one-week-ago").innerHTML
 	let oneMonthAgoPrice = document.getElementById("one-month-ago").innerHTML
 	let oneYearAgoPrice = document.getElementById("one-year-ago").innerHTML
-	console.log(currentPricePrint)
-	console.log(oneDayAgoPrice)
 
 	document.getElementById("one-day-ago-diff").innerHTML = Number( parseFloat(currentPricePrint) - parseFloat(oneDayAgoPrice)).toFixed(2)
 
+	if (parseFloat(currentPricePrint) - parseFloat(oneDayAgoPrice) > 0) {
+		document.getElementById('one-day-ago-pic').src = "./images/green.png"
+	} else {
+		document.getElementById('one-day-ago-pic').src = "./images/red.png"
+	}
+
 	document.getElementById("one-week-ago-diff").innerHTML = Number( parseFloat(currentPricePrint) - parseFloat(oneWeekAgoPrice)).toFixed(2)
+
+	if (parseFloat(currentPricePrint) - parseFloat(oneWeekAgoPrice) > 0) {
+		document.getElementById('one-week-ago-pic').src = "./images/green.png"
+	} else {
+		document.getElementById('one-week-ago-pic').src = "./images/red.png"
+	}
 
 	document.getElementById("one-month-ago-diff").innerHTML = Number( parseFloat(currentPricePrint) - parseFloat(oneMonthAgoPrice)).toFixed(2)
 
+	if (parseFloat(currentPricePrint) - parseFloat(oneMonthAgoPrice) > 0) {
+		document.getElementById('one-month-ago-pic').src = "./images/green.png"
+	} else {
+		document.getElementById('one-month-ago-pic').src = "./images/red.png"
+	}
+
 	document.getElementById("one-year-ago-diff").innerHTML = Number( parseFloat(currentPricePrint) - parseFloat(oneYearAgoPrice)).toFixed(2)
 
+	if (parseFloat(currentPricePrint) - parseFloat(oneYearAgoPrice) > 0) {
+		document.getElementById('one-year-ago-pic').src = "./images/green.png"
+	} else {
+		document.getElementById('one-year-ago-pic').src = "./images/red.png"
+	}
+
 }
+
 
 function oneDayAgo(json){
 	let price = json.bpi[formatDate(0,0,1)]
   oneDayAgoDiv = document.getElementById("one-day-ago")
 	oneDayAgoDiv.innerHTML = price
-	// debugger
-	// let currentPrice = currentPrice(json)
-	// let diffPrice = currentPrice - price
-	//
-	// if (currentPrice > price) {
-	// 	document.getElementById('one-day-ago-diff').innerHTML = `↑ ${diffPrice}`
-	// } else {
-	// 	document.getElementById('one-day-ago-diff').innerHTML = `↓
-	// 	${diffPrice}`
-	// }
-
 }
 
 function oneWeekAgo(json){
@@ -129,5 +148,16 @@ function oneYearAgo(json){
 
 
 jQuery(document).ready(function($) {
+	launchBitcoinApp()
 
+	let chartForm = document.getElementById("chart-form")
+	chartForm.addEventListener("submit", function(e){
+		e.preventDefault()
+		let startDate = document.getElementById("start-date-input").value
+		let endDate = document.getElementById("end-date-input").value
+		fetch(`https://api.coindesk.com/v1/bpi/historical/close.json?start=${startDate}&end=${endDate}`, {
+			method: 'GET',
+		}).then(res => res.json()).then(json => showResults(json))
+
+	})
 });
